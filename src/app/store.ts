@@ -1,5 +1,4 @@
-import { configureStore, ThunkAction, Action, bindActionCreators } from '@reduxjs/toolkit'
-import { useDispatch } from 'react-redux'
+import {Action, bindActionCreators, configureStore, ThunkAction} from '@reduxjs/toolkit'
 import todoSlice from './todoSlice'
 
 export const store = configureStore({
@@ -11,7 +10,6 @@ export const store = configureStore({
 export const TodoActions = bindActionCreators(todoSlice.actions, store.dispatch)
 
 export type AppDispatch = typeof store.dispatch
-export const useAppDispatch = () => useDispatch<AppDispatch>()
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppThunk<ReturnType = void> = ThunkAction<

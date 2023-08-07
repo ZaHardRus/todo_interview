@@ -3,7 +3,7 @@ import "./form.scss";
 import {TodoActions} from "../../app/store";
 
 export const TodoForm = () => {
-    const [task] = useState<string>("");
+    const [task, setTask] = useState<string>("");
 
     const handleAddTodo = () => {
         TodoActions.createTodo(task);
@@ -15,9 +15,13 @@ export const TodoForm = () => {
         }
     };
 
+    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTask(e?.target?.value)
+    }
+
     return (
         <div className="todo-form">
-            <input placeholder="Новое задание" value={task} onKeyUp={handleKeyUp}/>
+            <input placeholder="Новое задание" value={task} onKeyUp={handleKeyUp} onChange={onInputChange}/>
             <button type="button" onClick={handleAddTodo}>
                 Добавить задание
             </button>

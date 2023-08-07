@@ -49,7 +49,7 @@ const todosTemplate: Array<TodoItem> = [
     },
     {
         id: 9,
-        text:'исправить счетчик заданий, использовав функцию склонения',
+        text: 'исправить счетчик заданий, использовав функцию склонения',
         checked: false
     }
 ];
@@ -59,30 +59,41 @@ export interface TodoState {
 }
 
 const initialState: TodoState = {
-    todos: []
+    todos: todosTemplate
 };
 
-export const counterSlice = createSlice({
+export const todoSlice = createSlice({
     name: "todo",
     initialState,
     reducers: {
-        createTodo: (state, action: PayloadAction<TodoItem["text"]>) => {
+        createTodo: (state: TodoState, action: PayloadAction<TodoItem["text"]>) => {
             const newTodo = {
                 id: state.todos.length,
-                text: "new task",
+                text: action.payload,
                 checked: false
             };
-            state.todos = [newTodo, ...state.todos];
+            state.todos = [...state.todos, newTodo];
         },
         deleteTodo: (state, action: PayloadAction<TodoItem["id"]>) => {
-            // Fix me please =\
+            console.log(action)
+            state.todos = state.todos.filter(el => el.id !== action.payload)
         },
         toggleCheckTodo: (state, action: PayloadAction<TodoItem["id"]>) => {
-            // Fix me please =\
+            state.todos = state.todos.map(el => {
+                if (el.id === action.payload) {
+                    return {...el, checked: !el.checked}
+                }
+                return el
+            })
+        },
+        searchTasks: (state, action: PayloadAction<string>) => {
+            action.payload
+                ? state.todos = state.todos.filter(el => el.text.includes(action.payload))
+                : state.todos = todosTemplate
         }
     }
 });
 
-export const {createTodo, deleteTodo, toggleCheckTodo} = counterSlice.actions;
+export const {createTodo, deleteTodo, toggleCheckTodo, searchTasks} = todoSlice.actions;
 
-export default counterSlice;
+export default todoSlice;

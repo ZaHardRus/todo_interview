@@ -1,5 +1,6 @@
 import * as React from "react"
 import "./results.scss"
+import {useAppSelector} from "../../app/hooks";
 
 function pluralize(n: number, forms: Array<string>) {
     const correctForm = n % 10 === 1 && n % 100 !== 11
@@ -11,9 +12,11 @@ function pluralize(n: number, forms: Array<string>) {
 }
 
 export const TodoResults = () => {
+    const todo =  useAppSelector(state => state.todo)
+    const todosLength = todo.todos.length
     const resultText = () => {
         // Исправить счетчик заданий, использовав функцию склонения
-        return ''
+        return `${pluralize(todosLength,['Задача','Задачи','Задач'])}`
     }
 
     return (

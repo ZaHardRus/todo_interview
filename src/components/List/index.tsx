@@ -3,6 +3,7 @@ import {ListRow} from "./components/Row";
 import "./list.scss";
 import {useAppSelector} from "../../app/hooks";
 import {TodoActions} from "../../app/store";
+import {Search} from "./components/Search";
 
 export const TodoList = () => {
     const todos = useAppSelector((state) => state.todo.todos);
@@ -24,6 +25,7 @@ export const TodoList = () => {
     return (
         <div className="todo-list">
             <span className="todo-list-title">Список заданий</span>
+            <Search/>
             {todos.length ? (
                 <div className="todo-list-content">
                     {todos.map((todoItem) => (
