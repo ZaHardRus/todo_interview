@@ -44,7 +44,7 @@ const todosTemplate: Array<TodoItem> = [
     },
     {
         id: 8,
-        text: "написать debounce функцию для поиска (1500ms)",
+        text: "написать хук useDebounce для поиска (1000ms)",
         checked: false
     },
     {
